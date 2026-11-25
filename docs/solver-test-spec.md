@@ -54,65 +54,65 @@ by hand.
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| TRF-001 | direction y | swap x/y; round-trip gives the original layout | planned |
-| TRF-002 | Each of the 4 start corners | mirroring round-trips | planned |
-| TRF-003 | A mirrored room with a mirrored start corner | same plank count | planned |
+| TRF-001 | direction y | swap x/y; round-trip gives the original layout | covered |
+| TRF-002 | Each of the 4 start corners | mirroring round-trips | covered |
+| TRF-003 | A mirrored room with a mirrored start corner | same plank count | covered |
 
 ## ROW — Rows, bands, segments, cross-sections
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| ROW-001 | Room width = n × coverWidth exactly | possible with no rip, or with a balanced rip | planned |
-| ROW-002 | Remainder < minRipWidth | the first row must be ripped so the last row is ≥ minRipWidth | planned |
-| ROW-003 | Room narrower than one coverWidth | a single ripped row | planned |
-| ROW-004 | Room narrower than minRipWidth | `infeasible` | planned |
-| ROW-005 | Obstacle edge exactly on a row boundary | no notch in either row | planned |
-| ROW-006 | Obstacle edge 1 mm inside a band | sliver → this rip is rejected; the optimizer picks another rip | planned |
-| ROW-007 | Obstacle fully blocking a band | two segments, with cut ends at the obstacle | planned |
-| ROW-008 | Obstacle partly covering a band | one segment; pieces get a notch | planned |
-| ROW-009 | Small obstacle inside a band (pipe) | a piece with a hole; material either side ≥ minRipWidth, or reject | planned |
-| ROW-010 | Wall jog in the middle of the last row | an L-shaped (notched) piece | planned |
-| ROW-011 | Cross-section split into two strips along a whole piece | rejected / infeasible for that configuration | planned |
-| ROW-012 | Obstacle ending partway along a piece, with a cut end needed there | not allowed (cut ends only at segment ends) | planned |
+| ROW-001 | Room width = n × coverWidth exactly | possible with no rip, or with a balanced rip | covered |
+| ROW-002 | Remainder < minRipWidth | the first row must be ripped so the last row is ≥ minRipWidth | covered |
+| ROW-003 | Room narrower than one coverWidth | a single ripped row | covered |
+| ROW-004 | Room narrower than minRipWidth | `infeasible` | covered |
+| ROW-005 | Obstacle edge exactly on a row boundary | no notch in either row | covered |
+| ROW-006 | Obstacle edge 1 mm inside a band | sliver → this rip is rejected; the optimizer picks another rip | covered |
+| ROW-007 | Obstacle fully blocking a band | two segments, with cut ends at the obstacle | covered |
+| ROW-008 | Obstacle partly covering a band | one segment; pieces get a notch | covered |
+| ROW-009 | Small obstacle inside a band (pipe) | a piece with a hole; material either side ≥ minRipWidth, or reject | covered |
+| ROW-010 | Wall jog in the middle of the last row | an L-shaped (notched) piece | covered |
+| ROW-011 | Cross-section split into two strips along a whole piece | rejected: a piece must be one connected part (`min-width`) | covered |
+| ROW-012 | Obstacle ending partway along a piece, with a cut end needed there | not allowed (cut ends only at segment ends) | covered |
 
 ## PCK — Packing within a segment
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| PCK-001 | Segment = plank length | one full plank, no cuts | planned |
-| PCK-002 | Segment = 2 × plank length | two full planks | planned |
-| PCK-003 | Segment slightly longer than a plank (e.g. +100) | no piece < minPieceLength: e.g. R-piece + L-piece, both ≥ 300 | planned |
-| PCK-004 | Segment < minPieceLength | `infeasible` for that configuration | planned |
-| PCK-005 | Segment shorter than a plank | a single piece; a C-piece is allowed | planned |
-| PCK-006 | Kerf accounting | u + v + kerf = P for every cut | planned |
-| PCK-007 | An R-piece offered for the end of a row | rejected (wrong end type) | planned |
-| PCK-008 | An L-piece offered for the start of a row | rejected | planned |
-| PCK-009 | A C-piece offered inside a multi-piece segment | rejected | planned |
-| PCK-010 | An offcut exactly matching the needed start length | reused; no new plank | planned |
-| PCK-011 | An offcut 1 mm too short | not used | planned |
-| PCK-012 | Offcut shorter than minPieceLength after the cut | counted as waste; never placed | planned |
+| PCK-001 | Segment = plank length | one full plank, no cuts | covered |
+| PCK-002 | Segment = 2 × plank length | two full planks | covered |
+| PCK-003 | Segment slightly longer than a plank (e.g. +100) | no piece < minPieceLength: e.g. R-piece + L-piece, both ≥ 300 | covered |
+| PCK-004 | Segment < minPieceLength | `infeasible` for that configuration | covered |
+| PCK-005 | Segment shorter than a plank | a single piece; a C-piece is allowed | covered |
+| PCK-006 | Kerf accounting | u + v + kerf = P for every cut | covered |
+| PCK-007 | An R-piece offered for the end of a row | rejected (wrong end type) | covered |
+| PCK-008 | An L-piece offered for the start of a row | rejected | covered |
+| PCK-009 | A C-piece offered inside a multi-piece segment | rejected | covered |
+| PCK-010 | An offcut exactly matching the needed start length | reused; no new plank | covered |
+| PCK-011 | An offcut 1 mm too short | not used | covered |
+| PCK-012 | Offcut shorter than minPieceLength after the cut | counted as waste; never placed | covered |
 
 ## STG — Joint stagger
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| STG-001 | Adjacent rows with joints 499 mm apart (min 500) | violation | planned |
-| STG-002 | Joints exactly 500 mm apart | allowed (the bound is inclusive) | planned |
-| STG-003 | A joint aligned with a segment end in the next row | no violation (segment ends are not joints) | planned |
-| STG-004 | Rows overlap in x only partly (obstacle) | only the overlapping range is compared | planned |
-| STG-005 | Second-row rule turned off (0) | rows k and k+2 not compared | planned |
-| STG-006 | Second-row rule turned on | rows k and k+2 checked | planned |
+| STG-001 | Adjacent rows with joints 499 mm apart (min 500) | violation | covered |
+| STG-002 | Joints exactly 500 mm apart | allowed (the bound is inclusive) | covered |
+| STG-003 | A joint aligned with a segment end in the next row | no violation (segment ends are not joints) | covered |
+| STG-004 | Rows overlap in x only partly (obstacle) | joints are compared only if the line between the rows is unbroken material over the whole span between them (provisional) | covered |
+| STG-005 | Second-row rule turned off (0) | rows k and k+2 not compared | covered |
+| STG-006 | Second-row rule turned on | rows k and k+2 checked | covered |
 | STG-007 | Stagger forces a new plank instead of reusing an offcut | the optimizer accepts the extra plank; output is valid | planned |
 
 ## PIN — Pins / manual mode
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| PIN-001 | firstRowRip pinned to a valid value | used exactly | planned |
-| PIN-002 | firstRowRip < minRipWidth | violation reported, no crash | planned |
-| PIN-003 | rowStartLengths[0] pinned | row 0 starts with that length | planned |
+| PIN-001 | firstRowRip pinned to a valid value | used exactly | covered |
+| PIN-002 | firstRowRip < minRipWidth | `infeasible`, the rip shows as skipped in debug; no crash | covered |
+| PIN-003 | rowStartLengths[0] pinned | row 0 starts with that length | covered |
 | PIN-004 | Pinned start length breaks the stagger with the previous row | violation reported; the rest is still solved if possible | planned |
-| PIN-005 | Pin on a row index that doesn't exist | ignored + warning | planned |
+| PIN-005 | Pin on a row index that doesn't exist | ignored + warning | covered |
 | PIN-006 | Pins that cost planks | result ≥ the unpinned optimum (sanity check) | planned |
 
 ## OPT — Optimizer properties
@@ -122,24 +122,31 @@ by hand.
 | OPT-001 | Determinism | identical input → identical output (deep equality) | planned |
 | OPT-002 | Never worse than greedy | planks(opt) ≤ planks(greedy) on all fixtures and generated rooms | planned |
 | OPT-003 | Lower bound | planks ≥ ceil(layableArea / plankArea) | planned |
-| OPT-004 | Hand-solved small rooms | exact known optimal plank counts (list rooms below) | planned |
+| OPT-004 | Hand-solved small rooms | exact known optimal plank counts (list rooms below) | covered |
 | OPT-005 | Iteration budget | stops within `maxIterations`; returns the best so far | planned |
 | OPT-006 | More budget never makes it worse | planks(budget 2N) ≤ planks(budget N) | planned |
 | OPT-007 | Property test: random rectilinear rooms | the validator always passes, or status is `infeasible` with a reason | planned |
-| OPT-008 | Infeasible room (e.g. a too-narrow corridor) | `infeasible` with reasons, no exception | planned |
+| OPT-008 | Infeasible room (e.g. a too-narrow corridor) | `infeasible` with reasons, no exception | covered |
 
 Hand-solved rooms for OPT-004 (to be filled in as we work them out):
 
-- _e.g. 4826 × 456 (2 rows × 2 planks, no gap): stagger makes 4 full planks impossible → expected N_
+| Room (L × W) | Planks | Why |
+|---|---|---|
+| 2413 × 228 | 1 | one full plank |
+| 2413 × 456 | 2 | a full plank per row, no joints |
+| 2000 × 456 | 2 | two single-piece rows; one plank can't give 2 × 2000 |
+| 3000 × 456 | 3 | lower bound 3; row 1 reuses row 0's R offcut (1823, offset 590 ≥ 500) |
+| 4826 × 456 | 5 | 4 planks would need zero cuts, which puts both rows' joints at 2413; any stagger needs 3 mm more |
+| 4826 × 684 | 7 | rows 0 and 2 are full + full; the staggered row 1 needs 3 |
 
 ## RPT — Reporting
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| RPT-001 | Waste % is based on the layable area (gaps excluded) | formula from design spec §5.5 | planned |
-| RPT-002 | Pack count | ceil(planks / planksPerPack) | planned |
-| RPT-003 | The cut list accounts for every opened plank | the sum of pieces + kerf + waste = planks × length | planned |
-| RPT-004 | Laying order | row by row from the start corner; left to right within a row | planned |
+| RPT-001 | Waste % is based on the layable area (gaps excluded) | formula from design spec §5.5 | covered |
+| RPT-002 | Pack count | ceil(planks / planksPerPack) | covered |
+| RPT-003 | The cut list accounts for every opened plank | the sum of pieces + kerf + waste = planks × length | covered |
+| RPT-004 | Laying order | row by row from the start corner; left to right within a row | covered |
 
 ---
 

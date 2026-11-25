@@ -1,6 +1,6 @@
 # Plan: walking-skeleton
 
-Status: in progress (M1 done)
+Status: in progress (M1, M2 done)
 Date: 2026-11-25
 Sources: [design-spec.md](../design-spec.md), [solver-test-spec.md](../solver-test-spec.md)
 
@@ -173,33 +173,33 @@ Each task is TDD: write the test(s) named with catalog IDs, then implement, then
 
 ### M2 Rows, validator, greedy, report
 
-- [ ] Task 6: Frame transform
+- [x] Task 6: Frame transform
   - Files: `src/core/geometry/frame.ts`, `tests/core/geometry/frame.test.ts`
   - Action: Add the direction/corner normalization and its inverse, with a round-trip property
     test.
   - Context: Covers TRF-001 and TRF-002.
-- [ ] Task 7: Row slicing
+- [x] Task 7: Row slicing
   - Files: `src/core/rows/rows.ts`, `tests/core/rows/rows.test.ts`
   - Action: Add bands for a given rip, segments, the cross-section strips at x, and the min
     material width check for an x-interval.
   - Context: Covers ROW-002…005, 007–011.
-- [ ] Task 8: Validator, part 1
+- [x] Task 8: Validator, part 1
   - Files: `src/core/validate/validate.ts`, `tests/core/validate/validate.test.ts`
   - Action: Check coverage, end types, min piece length, min width, and material/kerf accounting.
     Build the layouts by hand.
   - Context: Covers PCK-006…009, ROW-012. This is the oracle and must exist before any solver.
-- [ ] Task 9: Validator, part 2
+- [x] Task 9: Validator, part 2
   - Files: same as Task 8
   - Action: Check stagger (provisional adjacency), second-row stagger, and pins.
   - Context: Covers STG-001…006.
-- [ ] Task 10: Greedy solver
+- [x] Task 10: Greedy solver
   - Files: `src/core/solver/greedy.ts`, `src/core/solver/solve-types.ts`,
     `tests/core/solver/greedy.test.ts`
   - Action: Take the first valid rip from coverWidth downward. For each segment, reuse a legal
     offcut, otherwise open a plank. Search a start length that satisfies stagger. Every output is
     validated.
   - Context: This is the first end-to-end result. Covers PCK-001…005, 010–012.
-- [ ] Task 11: Report
+- [x] Task 11: Report
   - Files: `src/core/report/report.ts`, `tests/core/report/report.test.ts`
   - Action: Build the cut list, laying order, and metrics (waste, lower bound, gap, packs).
   - Context: Covers RPT-001…004.
