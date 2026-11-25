@@ -28,27 +28,27 @@ by hand.
 
 | ID | Case | Expected | Status |
 |---|---|---|---|
-| GEO-001 | Single rectangle | layable = the rectangle; area exact | planned |
-| GEO-002 | Two overlapping adds | union; area counted once | planned |
-| GEO-003 | Two adds sharing a full edge | one region, one component | planned |
-| GEO-004 | Two adds touching only at a corner | 2 components → `disconnected` error | planned |
-| GEO-005 | Two adds sharing a partial edge (overlap > 0 mm) | connected | planned |
-| GEO-006 | Add with w = 0 or h = 0 | rejected at input | planned |
-| GEO-007 | Subtract fully inside an add | a hole; area reduced | planned |
-| GEO-008 | Subtract touching a wall | becomes a notch, not a hole | planned |
-| GEO-009 | Subtract splitting the floor in two | `disconnected` error | planned |
-| GEO-010 | Subtract covering everything | `empty` error | planned |
-| GEO-011 | Subtract outside every add | no effect + warning | planned |
-| GEO-012 | Overlapping subtracts | union of the subtracts | planned |
-| GEO-013 | Shrinking an L-shaped room by the wall gap | the inner corner moves correctly; region stays rectilinear | planned |
-| GEO-014 | A corridor narrower than 2 × wallGap | gaps split the floor → `disconnected` | planned |
-| GEO-015 | Obstacle gap overlapping the wall gap | merges correctly; no negative-width slivers | planned |
-| GEO-016 | Obstacle `gap` missing | inherits wallGap | planned |
-| GEO-017 | Obstacle `gap` = 0 next to a wall with wallGap 10 | each uses its own gap | planned |
-| GEO-018 | Negative coordinates | works the same as positive | planned |
-| GEO-019 | Very large room (20 m × 15 m) | exact integer area, no overflow | planned |
-| GEO-020 | 1 mm features | handled exactly; no float drift | planned |
-| GEO-021 | Part of layable narrower than minRipWidth in both directions | warning | planned |
+| GEO-001 | Single rectangle | layable = the rectangle; area exact | covered |
+| GEO-002 | Two overlapping adds | union; area counted once | covered |
+| GEO-003 | Two adds sharing a full edge | one region, one component | covered |
+| GEO-004 | Two adds touching only at a corner | 2 components → `disconnected` error | covered |
+| GEO-005 | Two adds sharing a partial edge (overlap > 0 mm) | connected | covered |
+| GEO-006 | Add with w = 0 or h = 0 | rejected at input | covered |
+| GEO-007 | Subtract fully inside an add | a hole; area reduced | covered |
+| GEO-008 | Subtract touching a wall | becomes a notch, not a hole | covered |
+| GEO-009 | Subtract splitting the floor in two | `disconnected` error | covered |
+| GEO-010 | Subtract covering everything | `empty` error | covered |
+| GEO-011 | Subtract outside every add | no effect + warning | covered |
+| GEO-012 | Overlapping subtracts | union of the subtracts | covered |
+| GEO-013 | Shrinking an L-shaped room by the wall gap | the inner corner moves correctly; region stays rectilinear | covered |
+| GEO-014 | A corridor narrower than 2 × wallGap | gaps split the floor → `disconnected` | covered |
+| GEO-015 | Obstacle gap overlapping the wall gap | merges correctly; no negative-width slivers | covered |
+| GEO-016 | Obstacle `gap` missing | inherits wallGap | covered |
+| GEO-017 | Obstacle `gap` = 0 next to a wall with wallGap 10 | each uses its own gap | covered |
+| GEO-018 | Negative coordinates | works the same as positive | covered |
+| GEO-019 | Very large room (20 m × 15 m) | exact integer area, no overflow | covered |
+| GEO-020 | 1 mm features | handled exactly; no float drift | covered |
+| GEO-021 | Part of layable where no minRipWidth × minRipWidth square fits (also catches long thin corridors) | `too-narrow` warning with the areas to highlight | covered |
 
 ## TRF — Normalization transform
 
@@ -150,10 +150,10 @@ Hand-solved rooms for OPT-004 (to be filled in as we work them out):
 | ID | Case | Expected | Status |
 |---|---|---|---|
 | MIG-001 | A fixture for every past version migrates to the current version | passes schema validation | planned |
-| MIG-002 | Version newer than the app supports | rejected with a clear message | planned |
-| MIG-003 | Missing optional fields | defaults applied | planned |
-| MIG-004 | Invalid JSON or wrong types | rejected with an error, not partly loaded | planned |
-| MIG-005 | Export → import round-trip | deep-equal project | planned |
+| MIG-002 | Version newer than the app supports | rejected with a clear message | covered |
+| MIG-003 | Missing optional fields | defaults applied | covered |
+| MIG-004 | Invalid JSON or wrong types | rejected with an error, not partly loaded | covered |
+| MIG-005 | Export → import round-trip | deep-equal project | covered |
 
 ### STO — Storage adapter
 
