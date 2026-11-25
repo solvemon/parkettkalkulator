@@ -1,6 +1,6 @@
 # Plan: walking-skeleton
 
-Status: in progress (M1, M2 done)
+Status: in progress — M1 and M2 done, **next: M3 (Task 12)**. See "Handoff notes" at the end.
 Date: 2026-11-25
 Sources: [design-spec.md](../design-spec.md), [solver-test-spec.md](../solver-test-spec.md)
 
@@ -258,3 +258,39 @@ Each task is TDD: write the test(s) named with catalog IDs, then implement, then
 - [ ] Task 22: Record the provisional decisions in the specs
   - Files: `docs/design-spec.md`, `docs/solver-test-spec.md`
   - Action: Add the provisional defaults and the OPT-004 rooms, and update the statuses.
+
+## Handoff notes
+
+Updated after each milestone so work can continue on another machine or in a new session.
+
+### State after M2 (2026-11-25)
+
+- All of `src/core` except the beam optimizer exists:
+  - model and parsing
+  - geometry, layable region and frame transform
+  - rows
+  - validator
+  - greedy solver
+  - report
+- 145 tests pass. `npm test`, `npm run typecheck` and `npm run lint` are clean.
+- `npm run solve` is declared in `package.json`, but `scripts/solve.ts` doesn't exist yet (Task 12).
+
+### Known limitations (expected, not bugs)
+
+- **The greedy stagger check is conservative.** It compares against *every* joint in the previous
+  row and ignores the "unbroken contact" rule, and it never backtracks. Around obstacles many rips
+  fail. On a 7 × 4.2 m room with an island, 25 of 38 rips failed at row 8, and the result was
+  55 planks against a lower bound of 52. The beam optimizer (Task 20) is meant to fix this.
+- **Pins:** a pin that can't be met currently gives `infeasible`. The provisional
+  `ok-with-violations` status is defined in `SolveStatus` but not produced yet (Task 21).
+- **Interpretation choice:** GEO-021 `too-narrow` is implemented as "no minRipWidth ×
+  minRipWidth square fits", which also flags long thin corridors.
+
+### Test helpers to reuse
+
+- `tests/core/builders.ts`: `testProject` (defaults from the test spec, gaps 0), and `seg`, `row`,
+  `layout` and `run` for building layouts by hand.
+- `tests/core/solver/invariants.ts`: `expectValidSolution` checks status ok, the validator, the
+  lower bound and determinism. Use it in every solver test.
+- `tests/core/geometry/pixels.ts`: a brute-force pixel oracle and the `smallRect` arbitrary for
+  property tests.
